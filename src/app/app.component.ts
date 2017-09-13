@@ -3,9 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <p>
-      app Works!
-    </p>
+    <div>
+      <!-- YOUR COMPONENTS GOES HERE -->
+
+    </div>
   `,
   styles: []
 })

@@ -17,8 +17,9 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
+      "prefix": "eos",
       "styles": [
+        "../node_modules/bootstrap/dist/css/bootstrap.css",
         "styles.css"
       ],
       "scripts": [],
@@ -54,8 +55,8 @@
     "styleExt": "css",
     "component": {
       "spec": false,
-      "inlineStyle": true,
-      "inlineTemplate": true
+      "inlineStyle": false,
+      "inlineTemplate": false
     },
     "directive": {
       "spec": false
