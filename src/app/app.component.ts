@@ -6,7 +6,7 @@ import * as u from './utils';
   template: `
     <div>
       <!-- YOUR COMPONENTS GOES HERE -->
-
+      <eos-home></eos-home>
     </div>
   `,
   styles: []
