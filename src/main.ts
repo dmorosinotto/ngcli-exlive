@@ -8,5 +8,6 @@ if (environment.production) {
   enableProdMode();
 }
 
+console.log("BOOTSTRAP ANGULAR APP IN:", environment.production?'PROD':'DEV');
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));
