@@ -7,6 +7,7 @@ import * as u from './utils';
     <div>
       <!-- YOUR COMPONENTS GOES HERE -->
       <eos-home></eos-home>
+      <eos-oper></eos-oper>
     </div>
   `,
   styles: []

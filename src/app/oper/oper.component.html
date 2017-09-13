@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="a">A:</label>
+                <input type="number" class="form-control" #a>
+            </div>
+            <select class="form-control" #op>
+                <option value="add">+</option>
+                <option value="sub">-</option>
+                <option value="mul">*</option>
+                <option value="div">/</option>
+            </select>
+            <div class="form-group">
+                <label for="b">B:</label>
+                <input type="number" class="form-control" #b>
+            </div>
+            <button type="submit" class="btn btn-default" (click)="calc(op.selectedIndex,a.value,b.value,$event)">CALC</button>
+        </form>
+    </div>
+</div>
