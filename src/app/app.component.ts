@@ -11,5 +11,9 @@ import { Component } from '@angular/core';
   styles: []
 })
 export class AppComponent {
-  title = 'app';
+
+  constructor() {
+    console.log("FIRST ANGULAR COMPONENT CREATED");
+  }
+
 }
