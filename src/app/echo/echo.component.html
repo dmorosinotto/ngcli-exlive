@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="form-group">
+          <label for="read">I READ:</label>
+          <input type="text" [(ngModel)]="read">
+          <p class="help-block">Write something here, and I'll ...</p>
+      </div>
+      <div class="checkbox">
+          <label>
+              <input type="checkbox" #toggle (click)="$event">
+              Try click me to change something!
+          </label>
+      </div>
+      <span [class.bg-danger]="toggle.checked">{{read}}</span>
+  </div>
+</div>
