@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { OperComponent } from './oper/oper.component';
 import { EchoComponent } from './echo/echo.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     OperComponent,
-    EchoComponent
+    EchoComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

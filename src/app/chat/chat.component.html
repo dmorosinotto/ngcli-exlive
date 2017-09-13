@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+      <p *ngFor="let chat of chatLog" 
+        [ngClass]="chat.who">{{chat.msg}}</p>
+  </div>
+  <div class="panel-footer">
+      <form #f="ngForm" (ngSubmit)="add(f)">
+          <label class="radio-inline">
+              <input type="radio" [ngModel]="preselect" name="who" value="bg-info text-left" checked> Pippo
+          </label>
+          <label class="radio-inline pull-right">
+              <input type="radio" [ngModel]="preselect" name="who" value="bg-success text-right"> Pluto
+          </label>
+          <div class="input-group">
+              <input type="text" ngModel name="msg" class="form-control" placeholder="Writing..." required>
+              <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit" [disabled]="!f.valid">Send</button>
+              </span>
+          </div><!-- /input-group -->
+      </form>
+  </div>
+</div>
