@@ -10,6 +10,7 @@ import * as u from './utils';
       <eos-oper></eos-oper>
       <eos-echo></eos-echo>
       <eos-chat></eos-chat>
+      <eos-ajax></eos-ajax>
     </div>
   `,
   styles: []

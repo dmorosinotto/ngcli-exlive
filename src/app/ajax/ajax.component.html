@@ -1,0 +1,10 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+      <button type="button" class="btn btn-success btn-lg" (click)="rnd()">Random Number</button>
+      <button type="button" class="btn btn-primary btn-lg" (click)="fact()">Fact of the Day</button>
+      <button type="button" class="btn btn-default btn-lg" (click)="clr()">Clear Log</button>
+  </div>
+  <div class="panel-body">
+      <pre *ngFor="let msg of logs">{{msg.when | date:'yyyy-MM-dd HH:mm:ssZ'}} {{msg.what}}</pre>
+  </div>
+</div>
