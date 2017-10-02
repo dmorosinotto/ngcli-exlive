@@ -337,4 +337,117 @@ Fare un refactor dell'applicazione per usare il `RouterModule` per passare da un
 
 ---
 
+# ESERCIZIO 7: FORM LOGIN
+Creare componente [src/app/login](src/app/login/login.component.ts) per gestire una form di LOGIN con il seguente template:
+```html
+<form class="form-horizontal">
+  <div class="form-group has-error">
+    <label class="col-sm-2 control-label">User</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" placeholder="Email">
+      <!-- AGGIUNGERE VALIDAZIONI NECESSARIE E ABILITARE SEGNALAZIONE ERRORE SOLO IN CASO ERRORE -->
+      <span class="help-block">* A valid EMail is required.</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" placeholder="Password min 3, max 8 char">
+      <span class="help-block"><!-- INSERIRE QUI DUE MESSAGGI PER IL CONTROLLO LUNGH PWD --></span>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-5">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Remember me
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <button type="submit" class="btn btn-success pull-right">LOGIN</button>
+    </div>
+  </div>
+</form>
+```
+- Aggiungere la Form `login` al Routing nel file [app.module](src/app/app.module.ts)
+- E modificare oppurtunamente il menù di navigazione in [app.component](src/app/app.component.ts) per aggiungere la tab di `Login`
+- Gestire nel componente [src/app/login](src/app/login/login.component.html) il Binding con `ngModel` + `ngForm` alla in modo da poter controllare le seguenti cose:
+- Il campo `user` deve essere Obbligatorio + accettare solo `email` valide
+- Nel caso in cui l'utente non inserisca un valore valido, il campo andrà bordato di rosso e dovrà essere mostrato il relativo messaggio di errore (come nell'html di esempio)
+- Il campo `pwd` per essere valido dovrà consentire l'inserimento di password `Lunghe min` 3 caratteri, `max` 8.
+- Nel caso in cui l'utente non rispetti questi criteri il campo dovrà essere bordato di giallo (class css `has-warning`) 
+- E inoltre dovrete aggiungere e visualizzare i relativi messaggi di errore sotto al campo. 
+- Infine il pulsante di LOGIN dovrà essere `Disabilitato` se ci sono errori nella form, e sarà cliccabile solo quando tutto è OK, mostrando un alert con `JSON.stringify(credenziali)`
+
+PS: Obbligatorio usare almeno metodi (condizioni) diverse per mostrare i vari messaggi di errore relativi ai vari campi
+
+---
+
+# ESERCIZIO 8: FORM SIGNIN
+Creare componente [src/app/signin] (src/app/signin/signin.component.ts) a partire dalla [login](src/app/login) del p.to precedente, per gestire una form di SIGNIN con il seguente template:
+```html
+<form class="form-horizontal">
+<!-- COPIARE QUI HTML FORM LOGIN: CAMPI EMAIL, PASSWORD -->
+<!-- ESCLUDERE DAL CHECKBOX REMEMBER ME IN GIU' AGGIUNGENDO QUANTO SEGUE -->
+  <div class="form-group has-warning">
+    <label class="col-sm-2 control-label">Confirm</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" placeholder="Confirm your password">
+      <span class="help-block"><!-- INSERIRE QUI MESSAGGIO ERRORE SE PWD NON CORRISPONDE --></span>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">REGISTER</button>
+    </div>
+  </div>
+</form>
+```
+- Aggiungere la Form `signin` al Routing nel file [app.module](src/app/app.module.ts)
+- E modificare oppurtunamente il menù di navigazione in [app.component](src/app/app.component.ts) per aggiungere la tab di `SignIn`
+- Gestire nel componente [src/app/signin](src/app/login/signin.component.html) il Binding con `ngModel` 
++ `ngForm` riportando le validazioni già fatte nel `login` e aggiungendo le seguenti cose:
+- Creare una `VALIDAZIONE CUSTOM` [src/app/match](src/app/auth/match.directive.ts) per la form, per verificare che il testo del campo `confirm` corrisponda a quello inserito in `pwd`
+- Nel caso in cui l'utente non inserisca un valore valido, il campo andrà bordato di giallo `has-warning` e dovrà essere mostrato il relativo messaggio di errore (come nell'html di esempio)
+- Il pulsante di REGISTER dovrà essere `Disabilitato` se ci sono errori nella form, e sarà cliccabile solo quando tutto è OK
+
+---
+
+# ESERCIZIO 9: SERVIZIO AUTH
+
+- Installare `npm i -D json-server` e utilizzare il seguendo file [db.json](db.json)
+```json
+{
+    "auth": [ { "user": "info@mdeasy.it", "pwd": "daniele" } ]
+}
+```
+Avviare il servizio in un'altra finestra terminal con il comando: `json-server --watch db.json`
+- Creare un servizio [src/app/auth](src/app/auth/auth.service.ts) e al suo interno usare il modulo `Http` di Angular includendo le seguenti righe
+```typescript
+import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+
+interface AuthCred {
+    user: string,
+    pwd: string
+}
+```
+- Aggiungere il seguente metodo per fare una POST di inserimento dei dati di registrazione di un nuovo utente:
+```typescript
+public register(cred: AuthCred): Promise<boolean> {
+    //TODO: fare una POST verso http://localhost:3000/auth per inserire le credenziali nel db.json
+}
+``` 
+- Aggiungere il seguente metodo per fare una GET di lettura per verificare se esiste già un utente con una data email
+```typescript
+public justUsed(email: string): Promise<boolean> {
+    //TODO: fare una GET verso http://localhost:3000/auth?user=<EMAIL> per verificare se esistono utenti già registrati con la EMAIL passata
+  }
+``` 
+- Utilizzare `AuthService` nella form [src/app/signin](src/app/signin/signin.component.ts) per gestire la REGISTRAZIONE utente inserendo i dati della Form quando validi
+- BONUS: Creare una `VALIDAZIONE ASYNCRONA CUSTOM` [src/app/asyncJustUsed](src/app/auth/asyncJustUsed.directive.ts) per verificare se l'email è già stata utilizzata/registrata.
+
 # THE END 
