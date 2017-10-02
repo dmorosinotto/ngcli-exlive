@@ -4,16 +4,18 @@ import * as u from './utils';
 @Component({
   selector: 'app-root',
   template: `
-    <div>
-      <!-- YOUR COMPONENTS GOES HERE -->
-      <eos-home></eos-home>
-      <eos-oper></eos-oper>
-      <eos-echo></eos-echo>
-      <eos-chat></eos-chat>
-      <eos-ajax></eos-ajax>
-    </div>
+<nav>
+  <ul class="nav nav-tabs">
+      <li role="presentation" routerLinkActive="active"><a routerLink="/home" >Home</a></li>
+      <li role="presentation" routerLinkActive="active"><a routerLink="/oper" >Oper</a></li>
+      <li role="presentation" routerLinkActive="active"><a routerLinkActive="custom" routerLink="/echo" >Echo</a></li>
+      <li role="presentation" routerLinkActive="active"><a routerLink="/chat" >Chat</a></li>
+      <li role="presentation" routerLinkActive="active"><a routerLink="/ajax" >Ajax</a></li>
+  </ul>
+  <router-outlet></router-outlet>
+  </nav>
   `,
-  styles: []
+  styles: ['.custom { color: red }']
 })
 export class AppComponent implements OnInit {
 

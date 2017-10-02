@@ -5,6 +5,6 @@
       <button type="button" class="btn btn-default btn-lg" (click)="clr()">Clear Log</button>
   </div>
   <div class="panel-body">
-      <pre *ngFor="let msg of logs">{{msg.when | date:'yyyy-MM-dd HH:mm:ssZ'}} {{msg.what}}</pre>
+      <pre *ngFor="let msg of logs">{{msg.when | date:'yyyy-MM-dd HH:mm:ss Z'}} {{msg.what}}</pre>
   </div>
 </div>

@@ -1,3 +1,4 @@
+import { Route, RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -9,6 +10,15 @@ import { OperComponent } from './oper/oper.component';
 import { EchoComponent } from './echo/echo.component';
 import { ChatComponent } from './chat/chat.component';
 import { AjaxComponent } from './ajax/ajax.component';
+
+const ROUTES: Route[] = [
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'home', component: HomeComponent},
+  {path: 'oper', component: OperComponent},
+  {path: 'echo', component: EchoComponent},
+  {path: 'chat', component: ChatComponent},
+  {path: 'ajax', component: AjaxComponent}
+]
 
 @NgModule({
   declarations: [
@@ -22,7 +32,8 @@ import { AjaxComponent } from './ajax/ajax.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(ROUTES)
   ],
   providers: [],
   bootstrap: [AppComponent]

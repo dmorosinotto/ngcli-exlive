@@ -69,15 +69,16 @@ export class AjaxComponent {
   
   private _getRandom(max:number=31): Promise<number> {
     return this.httpGET(
-        `${environment.BASEURL}/random?max=10&json`, 
-        (data:INumber) => data.number, -1);
+        `${environment.BASEURL}/random?max=${max}&json`, 
+        (data: INumber) => data.number,
+         -1);
   }
   
   private _getFactOf(): Promise<string> {
     return Promise.all([ this._getRandom(), this._getRandom(12) ])
             .then( ([day, month]) => 
                     this.httpGET(
-                        `${environment.BASEURL}/${month}/${day}/date?json`
+                        `${environment.BASEURL}/${day}/${month}/date?json`
                         , (data:INumber) => data.text
                         , "?") );
   }
