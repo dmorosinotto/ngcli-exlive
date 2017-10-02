@@ -10,6 +10,10 @@ import { OperComponent } from './oper/oper.component';
 import { EchoComponent } from './echo/echo.component';
 import { ChatComponent } from './chat/chat.component';
 import { AjaxComponent } from './ajax/ajax.component';
+import { LoginComponent } from './login/login.component';
+import { SigninComponent } from './signin/signin.component';
+import { MatchDirective } from './auth/match.directive';
+import { AsyncJustUsedDirective } from './auth/async-just-used.directive';
 
 const ROUTES: Route[] = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -17,6 +21,8 @@ const ROUTES: Route[] = [
   {path: 'oper', component: OperComponent},
   {path: 'echo', component: EchoComponent},
   {path: 'chat', component: ChatComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'signin', component: SigninComponent},
   {path: 'ajax', component: AjaxComponent}
 ]
 
@@ -27,7 +33,11 @@ const ROUTES: Route[] = [
     OperComponent,
     EchoComponent,
     ChatComponent,
-    AjaxComponent
+    AjaxComponent,
+    LoginComponent,
+    SigninComponent,
+    MatchDirective,
+    AsyncJustUsedDirective
   ],
   imports: [
     BrowserModule,

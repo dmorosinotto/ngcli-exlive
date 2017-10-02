@@ -8,9 +8,11 @@ import * as u from './utils';
   <ul class="nav nav-tabs">
       <li role="presentation" routerLinkActive="active"><a routerLink="/home" >Home</a></li>
       <li role="presentation" routerLinkActive="active"><a routerLink="/oper" >Oper</a></li>
-      <li role="presentation" routerLinkActive="active"><a routerLinkActive="custom" routerLink="/echo" >Echo</a></li>
+      <li role="presentation" routerLinkActive="active"><a routerLink="/echo" >Echo</a></li>
       <li role="presentation" routerLinkActive="active"><a routerLink="/chat" >Chat</a></li>
       <li role="presentation" routerLinkActive="active"><a routerLink="/ajax" >Ajax</a></li>
+      <li role="presentation" routerLinkActive="active"><a routerLinkActive="custom" routerLink="/login" >Login</a></li>
+      <li role="presentation" routerLinkActive="active"><a routerLinkActive="custom" routerLink="/signin" >Sign In</a></li>
   </ul>
   <router-outlet></router-outlet>
   </nav>
