@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
 import { MatchDirective } from './auth/match.directive';
 import { AsyncJustUsedDirective } from './auth/async-just-used.directive';
+import { AuthService } from './auth/auth.service';
 
 const ROUTES: Route[] = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -45,7 +46,7 @@ const ROUTES: Route[] = [
     HttpModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

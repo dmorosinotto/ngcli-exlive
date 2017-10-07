@@ -372,7 +372,7 @@ Creare componente [src/app/login](src/app/login/login.component.ts) per gestire 
 ```
 - Aggiungere la Form `login` al Routing nel file [app.module](src/app/app.module.ts)
 - E modificare oppurtunamente il menù di navigazione in [app.component](src/app/app.component.ts) per aggiungere la tab di `Login`
-- Gestire nel componente [src/app/login](src/app/login/login.component.html) il Binding con `ngModel` + `ngForm` alla in modo da poter controllare le seguenti cose:
+- Gestire nel componente [src/app/login](src/app/login/login.component.html) il Binding con `ngModel` e `ngForm` in modo da poter controllare le seguenti cose:
 - Il campo `user` deve essere Obbligatorio + accettare solo `email` valide
 - Nel caso in cui l'utente non inserisca un valore valido, il campo andrà bordato di rosso e dovrà essere mostrato il relativo messaggio di errore (come nell'html di esempio)
 - Il campo `pwd` per essere valido dovrà consentire l'inserimento di password `Lunghe min` 3 caratteri, `max` 8.
@@ -380,7 +380,7 @@ Creare componente [src/app/login](src/app/login/login.component.ts) per gestire 
 - E inoltre dovrete aggiungere e visualizzare i relativi messaggi di errore sotto al campo. 
 - Infine il pulsante di LOGIN dovrà essere `Disabilitato` se ci sono errori nella form, e sarà cliccabile solo quando tutto è OK, mostrando un alert con `JSON.stringify(credenziali)`
 
-PS: Obbligatorio usare almeno metodi (condizioni) diverse per mostrare i vari messaggi di errore relativi ai vari campi
+PS: Obbligatorio usare almeno 2 metodi (condizioni) diverse per mostrare i vari messaggi di errore relativi ai vari campi
 
 ---
 
@@ -406,8 +406,7 @@ Creare componente [src/app/signin] (src/app/signin/signin.component.ts) a partir
 ```
 - Aggiungere la Form `signin` al Routing nel file [app.module](src/app/app.module.ts)
 - E modificare oppurtunamente il menù di navigazione in [app.component](src/app/app.component.ts) per aggiungere la tab di `SignIn`
-- Gestire nel componente [src/app/signin](src/app/login/signin.component.html) il Binding con `ngModel` 
-+ `ngForm` riportando le validazioni già fatte nel `login` e aggiungendo le seguenti cose:
+- Gestire nel componente [src/app/signin](src/app/login/signin.component.html) il Binding con `ngModel` e `ngForm` riportando le validazioni già fatte nel `login` e aggiungendo le seguenti cose:
 - Creare una `VALIDAZIONE CUSTOM` [src/app/match](src/app/auth/match.directive.ts) per la form, per verificare che il testo del campo `confirm` corrisponda a quello inserito in `pwd`
 - Nel caso in cui l'utente non inserisca un valore valido, il campo andrà bordato di giallo `has-warning` e dovrà essere mostrato il relativo messaggio di errore (come nell'html di esempio)
 - Il pulsante di REGISTER dovrà essere `Disabilitato` se ci sono errori nella form, e sarà cliccabile solo quando tutto è OK
@@ -419,7 +418,7 @@ Creare componente [src/app/signin] (src/app/signin/signin.component.ts) a partir
 - Installare `npm i -D json-server` e utilizzare il seguendo file [db.json](db.json)
 ```json
 {
-    "auth": [ { "user": "info@mdeasy.it", "pwd": "daniele" } ]
+    "auth": [ { "id": 1, "user": "info@mdeasy.it", "pwd": "daniele" } ]
 }
 ```
 Avviare il servizio in un'altra finestra terminal con il comando: `json-server --watch db.json`

@@ -1,3 +1,9 @@
 {
-    "auth": [ { "user": "info@mdeasy.it", "pwd": "daniele" } ]
+  "auth": [
+    {
+      "id": 1,
+      "user": "info@mdeasy.it",
+      "pwd": "daniele"
+    }
+  ]
 }

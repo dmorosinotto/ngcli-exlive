@@ -2,8 +2,9 @@
   <div class="form-group" [class.has-error]="f.form.get('user')?.invalid">
     <label class="col-sm-2 control-label">User</label>
     <div class="col-sm-10">
-      <input ngModel name="user" type="email" class="form-control" placeholder="Email" required email>
+      <input ngModel name="user" type="email" class="form-control" placeholder="Email" required email asyncJustUsed>
       <span *ngIf="f.hasError('email','user')" class="help-block">* A valid E-Mail is required.</span>
+      <span *ngIf="f.hasError('justused','user')" class="help-block">This email is just used!</span>
     </div>
   </div>
   <div class="form-group" [class.has-warning]="pwd.invalid">
@@ -18,13 +19,14 @@
   <div class="form-group" [class.has-warning]="f.form?.errors?.match">
     <label class="col-sm-2 control-label">Confirm</label>
     <div class="col-sm-10">
-      <input ngModel name="confirm" type="password" class="form-control" placeholder="Confirm your password">
-      <span class="help-block" *ngIf="f.hasError('match')">Check your password, this don't match!</span>
+      <input ngModel name="confirm" #confirm="ngModel" type="password" class="form-control" placeholder="Confirm your password">
+      <span class="help-block" *ngIf="f.hasError('match')">Re-type your password, this don't match!</span>
+      <span class="help-block" *ngIf="confirm.value!=pwd.value">Check your password, this don't match!</span>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button [disabled]="!f.valid" type="submit" class="btn btn-primary">REGISTER</button>
+      <button [disabled]="!(f.valid && confirm.value===pwd.value)" type="submit" class="btn btn-primary">REGISTER</button>
     </div>
   </div>
 </form>

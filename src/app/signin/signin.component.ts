@@ -1,3 +1,4 @@
+import { AuthService } from '../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
@@ -8,13 +9,19 @@ import { NgForm } from '@angular/forms';
 })
 export class SigninComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
   }
 
   showValue(f: NgForm) {
-    alert(JSON.stringify(f.value));    
+    let cred = f.value;
+    delete cred.confirm;
+    console.log("CRED",cred);
+    this.auth.register(cred)
+      .then(ok => alert("REGISTRATION " + ok))
+      .catch(err => alert("ERROR" + err));
+    f.reset();
   }
 
 }
