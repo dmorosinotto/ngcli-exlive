@@ -1,29 +1,29 @@
-<form class="form-horizontal">
-  <div class="form-group has-error">
+<form #f="ngForm" (ngSubmit)="showValue(f)" class="form-horizontal">
+  <div class="form-group" [class.has-error]="f.form.get('user')?.invalid">
     <label class="col-sm-2 control-label">User</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" placeholder="Email">
-      <!-- AGGIUNGERE VALIDAZIONI NECESSARIE E ABILITARE SEGNALAZIONE ERRORE SOLO IN CASO ERRORE -->
-      <span class="help-block">* A valid E-Mail is required.</span>
+      <input ngModel name="user" type="email" class="form-control" placeholder="Email" required email>
+      <span *ngIf="f.hasError('email','user')" class="help-block">* A valid E-Mail is required.</span>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group" [class.has-warning]="pwd.invalid">
     <label class="col-sm-2 control-label">Password</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" placeholder="Password min 3, max 8 char">
-      <span class="help-block"><!-- INSERIRE QUI DUE MESSAGGI PER IL CONTROLLO LUNGH PWD --></span>
+      <input ngModel name="pwd" #pwd="ngModel" type="password" class="form-control" placeholder="Password min 3, max 8 char" minlength="3" maxlength="8" required>
+      <span class="help-block" *ngIf="pwd?.errors?.minlength || pwd?.errors?.required">Password must be at least 3 characters long</span>
+      <span class="help-block" *ngIf="pwd?.hasError('maxlength')">Password can be at max {{pwd.errors.maxlength.requiredLength}} chars long</span>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-5">
       <div class="checkbox">
         <label>
-          <input type="checkbox"> Remember me
+          <input ngModel name="remeber" type="checkbox"> Remember me
         </label>
       </div>
     </div>
     <div class="col-sm-5">
-      <button type="submit" class="btn btn-success pull-right">LOGIN</button>
+      <button [disabled]="!f.valid" type="submit" class="btn btn-success pull-right">LOGIN</button>
     </div>
   </div>
 </form>
