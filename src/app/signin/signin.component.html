@@ -1,30 +1,30 @@
-<form class="form-horizontal">
-<!-- COPIARE QUI HTML FORM LOGIN: CAMPI EMAIL, PASSWORD -->
-  <div class="form-group has-error">
+<form #f="ngForm" (ngSubmit)="showValue(f)" class="form-horizontal" ctrl-match="pwd:confirm">
+  <div class="form-group" [class.has-error]="f.form.get('user')?.invalid">
     <label class="col-sm-2 control-label">User</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" placeholder="Email">
-      <!-- AGGIUNGERE VALIDAZIONI NECESSARIE E ABILITARE SEGNALAZIONE ERRORE SOLO IN CASO ERRORE -->
-      <span class="help-block">* A valid EMail is required.</span>
+      <input ngModel name="user" type="email" class="form-control" placeholder="Email" required email>
+      <span *ngIf="f.hasError('email','user')" class="help-block">* A valid E-Mail is required.</span>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group" [class.has-warning]="pwd.invalid">
     <label class="col-sm-2 control-label">Password</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" placeholder="Password min 3, max 8 char">
+      <input ngModel name="pwd" #pwd="ngModel" type="password" class="form-control" placeholder="Password min 3, max 8 char" minlength="3" maxlength="8" required>
+      <span class="help-block" *ngIf="pwd?.errors?.minlength || pwd?.errors?.required">Password must be at least 3 characters long</span>
+      <span class="help-block" *ngIf="pwd?.hasError('maxlength')">Password can be at max {{pwd.errors.maxlength.requiredLength}} chars long</span>
     </div>
   </div>
-<!-- ESCLUDERE DAL CHECKBOX REMEMBER ME IN GIU' AGGIUNGENDO QUANTO SEGUE -->
-  <div class="form-group has-warning">
+
+  <div class="form-group" [class.has-warning]="f.form?.errors?.match">
     <label class="col-sm-2 control-label">Confirm</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" placeholder="Confirm your password">
-      <span class="help-block"><!-- INSERIRE QUI MESSAGGIO ERRORE SE PWD NON CORRISPONDE --></span>
+      <input ngModel name="confirm" type="password" class="form-control" placeholder="Confirm your password">
+      <span class="help-block" *ngIf="f.hasError('match')">Check your password, this don't match!</span>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">REGISTER</button>
+      <button [disabled]="!f.valid" type="submit" class="btn btn-primary">REGISTER</button>
     </div>
   </div>
 </form>
