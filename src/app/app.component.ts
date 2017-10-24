@@ -13,6 +13,7 @@ import * as u from './utils';
       <li role="presentation" routerLinkActive="active"><a routerLink="/ajax" >Ajax</a></li>
       <li role="presentation" routerLinkActive="active"><a routerLinkActive="custom" routerLink="/login" >Login</a></li>
       <li role="presentation" routerLinkActive="active"><a routerLinkActive="custom" routerLink="/signin" >Sign In</a></li>
+      <li role="presentation" routerLinkActive="active"><a routerLinkActive="custom" routerLink="/contact" >Contact</a></li>
   </ul>
   <router-outlet></router-outlet>
   </nav>

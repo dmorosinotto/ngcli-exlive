@@ -407,7 +407,7 @@ Creare componente [src/app/signin] (src/app/signin/signin.component.ts) a partir
 - Aggiungere la Form `signin` al Routing nel file [app.module](src/app/app.module.ts)
 - E modificare oppurtunamente il menù di navigazione in [app.component](src/app/app.component.ts) per aggiungere la tab di `SignIn`
 - Gestire nel componente [src/app/signin](src/app/login/signin.component.html) il Binding con `ngModel` e `ngForm` riportando le validazioni già fatte nel `login` e aggiungendo le seguenti cose:
-- Creare una `VALIDAZIONE CUSTOM` [src/app/match](src/app/auth/match.directive.ts) per la form, per verificare che il testo del campo `confirm` corrisponda a quello inserito in `pwd`
+- Creare una `VALIDAZIONE CUSTOM` [core/match](src/app/core/match.directive.ts) per la form, per verificare che il testo del campo `confirm` corrisponda a quello inserito in `pwd`
 - Nel caso in cui l'utente non inserisca un valore valido, il campo andrà bordato di giallo `has-warning` e dovrà essere mostrato il relativo messaggio di errore (come nell'html di esempio)
 - Il pulsante di REGISTER dovrà essere `Disabilitato` se ci sono errori nella form, e sarà cliccabile solo quando tutto è OK
 
@@ -422,7 +422,7 @@ Creare componente [src/app/signin] (src/app/signin/signin.component.ts) a partir
 }
 ```
 Avviare il servizio in un'altra finestra terminal con il comando: `json-server --watch db.json`
-- Creare un servizio [src/app/auth](src/app/auth/auth.service.ts) e al suo interno usare il modulo `Http` di Angular includendo le seguenti righe
+- Creare un servizio [core/auth](src/app/core/auth.service.ts) e al suo interno usare il modulo `Http` di Angular includendo le seguenti righe
 ```typescript
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -447,6 +447,152 @@ public justUsed(email: string): Promise<boolean> {
   }
 ``` 
 - Utilizzare `AuthService` nella form [src/app/signin](src/app/signin/signin.component.ts) per gestire la REGISTRAZIONE utente inserendo i dati della Form quando validi
-- BONUS: Creare una `VALIDAZIONE ASYNCRONA CUSTOM` [src/app/asyncJustUsed](src/app/auth/asyncJustUsed.directive.ts) per verificare se l'email è già stata utilizzata/registrata.
+- BONUS: Creare una `VALIDAZIONE ASYNCRONA CUSTOM` [core/asyncJustUsed](src/app/core/asyncJustUsed.directive.ts) per verificare se l'email è già stata utilizzata/registrata.
+
+# ESERCIZIO 10: FORM CONTACT
+Creare componente [src/app/contact] (src/app/contact/contact.component.ts) per gestire una form di SALVATAGGIO DATI con il seguente template:
+```html
+<form class="form-horizontal">
+  <div class="form-group"><!-- AGGIUNGERE CLASSE has-error SE CAMPO INVALIDO -->
+    <label class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input class="form-control" placeholder="name is required and min 3 chars">
+      <span><!-- MOSTRARE QUI I MESSAGGI DI ERRORE PER CAMPO OBBLIGATORIO E LUNGHEZZA MINIMA DI 3 CARATTERI IN BASE AL VALORE DEL CAMPO --></span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Sex</label>
+    <div class="col-sm-10">
+        <label class="radio-inline">
+            <input type="radio" value="M"> Man
+        </label>
+        <label class="radio-inline">
+          <input type="radio" value="F"> Woman
+        </label>
+        <label class="radio-inline">
+          <input type="radio" value="A"> Angel
+        </label>
+        <span><!-- MOSTRARE QUI MESSAGGIO NEL CASO DI VALORE DIVERSO DA M/F --></span>
+    </div>
+  </div>
+  <div class="form-group">
+      <label class="col-sm-2 control-label">Age</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" placeholder="age valid 1-100">
+      </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Address</label>
+    <div class="col-sm-10 well">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">City</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="city anything is good, no validation">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Prov</label>
+            <div class="col-sm-10">
+              <select class="form-control" placeholder="prov use async validate PD|VI|TV|PN">
+                <option></option>
+                <option>PD</option>
+                <option>PN</option>
+                <option>TV</option>
+                <option>VI</option>
+                <option>VR</option>
+                <option>VE</option>
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Cap</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="cap must be string with 5 digit">
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="form-group">
+      <label class="col-sm-2 control-label">Phones</label>
+      <button type="button" class="btn btn-default pull-left"> + </button>
+ 
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="phone must begin with 328|320|347|333">
+        <span class="input-group-btn">
+          <button class="btn btn-default"> - </button>
+        </span>
+      </div>
+  </div>
+  <div class="col-sm-offset-8 col-sm-4">
+    <button type="submit" class="btn btn-success pull-right">SAVE</button>
+    <button type="button" class="btn btn-default pull-left">CANCEL</button>
+  </div>
+</form>
+
+<hr/>
+<pre>
+VALID={{frm.valid}}
+VALUE={{frm.value | json}}
+ERROR={{allErrors(frm) | json}}
+</pre>
+```
+Usare le `ReactiveForms` per gestire questa form e il seguente snippet per visualizzare gli errori di validazione:
+```typescript
+public allErrors(ctrl: FormControl | FormArray | FormGroup): ValidationErrors | null {
+    if (!ctrl) return undefined;
+    if (ctrl.valid) return null;
+    if (ctrl instanceof FormControl) return ctrl.errors;
+    const keys = Object.keys(ctrl.controls);
+    return keys.reduce( (err, k)=>Object.assign(err, {[k]: this.allErrors(ctrl.get(k) as any)}), ctrl.errors || {}) 
+}
+```
+Creare queste validazioni:
+- `name` campo obbligatorio + controllo lunghezza minima 3 caratteri + default=Pippo
+- `sex` creare una validazione custom `validGenre` che accetta solo i valori M o F sia in maiuscolo che minuscolo
+- `age` valori compresi tra 1 e 100
+- `city` nessun controllo va bene tutto
+- `cap` validazione formato stringa con 5 cifre
+- `phones` provare a gestire `FormArray` dinamico per l'inserimento/cancellazione di un numero qualsiasi di telefoni cellulari 
+- creare i metodi addPhone e removePhone per aggiungere/rimuovere un numero di telefono dall'array agganciati ai pulsanti + e -
+- BONUS: aggiungere una validazione tramite pattern che consente di inserire 
+solo numeri di cellulare che iniziano per 328, 347, 320, 343
+
+Aggiungere inoltre i seguenti comportamenti:
+- Disabilitare il pulsante di SALVA nel caso in cui ci siano errori di validazione
+- Aggiungere la classe css `has-error` se il campo `name` non è valido
+- Per tutti gli altri campi di inserimento mostrare bordo sinistro rosso se il campo non rispetta la validazione
+
+- BONUS1: provare a cambiare il `type` del campo `age` in base al valore del campo `sex` se sex='F' allora type='password' altrimenti normale type='text'
+- BONUS2: creare una validazione asincrona custom `validProv` che legge/valida il valore selezionato rispetto ad una tabella caricata nel [db.json](db.json) e letta tramite la chiamata rest GET http://localhost:3000/prov usando `json-server`
+```json
+{...
+, "prov": [
+    {"id": "PD"},
+    {"id": "VI"},
+    {"id": "TV"},
+    {"id": "PN"}
+  ]
+}
+Potete usare il seguente snippet per fare la chiamata Ajax
+```typescript
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/map';
+import 'rxjs/observable/of';
+
+const BASEURL_PROV = "http://localhost:3000/prov"
+//... ALL'INTERNO DELLA VOSTRA VALIDAZIONE USATE
+function ajaxEsisteProv(sigla: string) {
+    return this.http.get(BASEURL_PROV +'/'+ sigla)  
+                    .map(res => res.json())
+                    .map( () => true)  //OK ESISTE PROV --> Validazione NULL
+                    .catch( err => Observable.of( false ) ) // NON ESISTE!!!
+                    .delay(2000);
+}
+```
+- BONUS3: Mentre avviene la validazione asincrona della provinca, provare a visualizzare lo sfondo giallo del campo finchè la richiesta è in stato pendente
+- BONUS4: Provare a limitare l'input `age` in modo che accetti solo caratteri numerici ignorando qualsiasi altro tasto venga premuto (ricordarsi anche del `Backspace`) 
+- BONUS5: creare un nuovo componente <input-num> che è un controllo di input type='text' che però limita la digitazione ai soli caratteri numerici, segno e decimali ed implementa correttamente `ControlValueAccessor` in modo da interfacciarsi con il binding di Angular come ngModel e usarlo per `age`. 
+```
 
 # THE END 

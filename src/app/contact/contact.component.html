@@ -1,0 +1,86 @@
+<form [formGroup]="frm" class="form-horizontal">
+  <div class="form-group" [class.has-error]="frm.get('name').invalid">
+    <label class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input formControlName="name" class="form-control" placeholder="name is required and min 3 chars">
+      <span *ngIf="frm.get('name').errors?.required" class="help-block">* Name is required.</span>
+      <span *ngIf="frm.hasError('minlength','name')" class="help-block">* Invalid length min {{frm.getError('minlength','name').requiredLength}} char.</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Sex</label>
+    <div class="col-sm-10">
+      <label class="radio-inline">
+        <input type="radio" formControlName="sex" value="M"> Man
+      </label>
+      <label class="radio-inline">
+        <input type="radio" formControlName="sex" value="F"> Woman
+      </label>
+      <label class="radio-inline">
+        <input type="radio" formControlName="sex" value="A"> Angel
+      </label>
+      <span class="help-block" *ngIf="sexCtrl.invalid">* {{sexCtrl.getError('genre')}} Sex</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Age</label>
+    <div class="col-sm-10">
+      <!--<input formControlName="ageText" [type]="sexCtrl.value=='F'?'password':'text'" class="form-control" placeholder="age valid 1-100" (keydown)="onlyNum($event)">-->
+      <input-num formControlName="age" [allowDec]="false" [allowNeg]="true"></input-num>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Address</label>
+    <div class="col-sm-10 well" formGroupName="address">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">City</label>
+        <div class="col-sm-10">
+          <input formControlName="city" type="text" class="form-control" placeholder="city anything is good, no validation">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Prov</label>
+        <div class="col-sm-10">
+          <select formControlName="prov" class="form-control" placeholder="prov use async validate PD|VI|TV|PN">
+            <option></option>
+            <option>PD</option>
+            <option>PN</option>
+            <option>TV</option>
+            <option>VI</option>
+            <option>VR</option>
+            <option>VE</option>
+            <option *ngFor="let p of prov$|async">{{p.id}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Cap</label>
+        <div class="col-sm-10">
+          <input formControlName="cap" type="text" class="form-control" placeholder="cap must be string with 5 digit">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" formArrayName="phones">
+    <label class="col-sm-2 control-label">Phones</label>
+    <button type="button" class="btn btn-default pull-left" (click)="addPhone()"> + </button>
+
+    <div class="input-group" *ngFor="let phone of frm.get('phones').controls; let idx=index">
+      <input [formControl]="phone" type="text" class="form-control" placeholder="phone must begin with 328|320|347|333">
+      <span class="input-group-btn">
+        <button class="btn btn-default" (click)="removePhone(idx)"> - </button>
+      </span>
+    </div>
+  </div>
+  <div class="col-sm-offset-8 col-sm-4">
+    <button [disabled]="frm.invalid" type="submit" class="btn btn-success pull-right">SAVE</button>
+    <button type="button" class="btn btn-default pull-left" (click)="frm.reset()">CANCEL</button>
+  </div>
+</form>
+
+<hr/>
+<pre>
+VALID={{frm.valid}}
+VALUE={{frm.value | json}}
+ERROR={{allErrors(frm) | json}}
+</pre>

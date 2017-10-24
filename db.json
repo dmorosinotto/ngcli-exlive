@@ -5,5 +5,11 @@
       "user": "info@mdeasy.it",
       "pwd": "daniele"
     }
+  ],
+  "prov": [
+    {"id": "PD"},
+    {"id": "VI"},
+    {"id": "TV"},
+    {"id": "PN"}
   ]
 }

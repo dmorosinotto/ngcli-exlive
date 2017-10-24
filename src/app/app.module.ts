@@ -1,6 +1,6 @@
 import { Route, RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -12,9 +12,11 @@ import { ChatComponent } from './chat/chat.component';
 import { AjaxComponent } from './ajax/ajax.component';
 import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
-import { MatchDirective } from './auth/match.directive';
-import { AsyncJustUsedDirective } from './auth/async-just-used.directive';
-import { AuthService } from './auth/auth.service';
+import { MatchDirective } from './core/match.directive';
+import { AsyncJustUsedDirective } from './core/async-just-used.directive';
+import { AuthService } from './core/auth.service';
+import { ContactComponent } from './contact/contact.component';
+import { InputNumComponent } from './core/input-num.component';
 
 const ROUTES: Route[] = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -24,6 +26,7 @@ const ROUTES: Route[] = [
   {path: 'chat', component: ChatComponent},
   {path: 'login', component: LoginComponent},
   {path: 'signin', component: SigninComponent},
+  {path: 'contact', component: ContactComponent},
   {path: 'ajax', component: AjaxComponent}
 ]
 
@@ -38,11 +41,14 @@ const ROUTES: Route[] = [
     LoginComponent,
     SigninComponent,
     MatchDirective,
-    AsyncJustUsedDirective
+    AsyncJustUsedDirective,
+    ContactComponent,
+    InputNumComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES)
   ],

@@ -1,0 +1,4 @@
+input.ng-invalid { border-left: 2px solid red }
+select.ng-invalid.ng-dirty { color: red }
+select.ng-valid { color: blue }
+select.ng-pending { transition: background-color 2000ms ease-in-out; background-color: yellow }
