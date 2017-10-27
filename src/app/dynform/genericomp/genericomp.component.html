@@ -1,0 +1,38 @@
+<fieldset *ngIf="hasChild(); else simpleCtrl">
+  <p>{{options.label || name}}
+    <button *ngIf="isArr" (click)="add()">+</button>
+    <button *ngIf="isArr" (click)="del()">-</button>
+  </p>
+  <generic-ctrl *ngFor="let key of childs" [ctrl]="ctrl.get(key)" [name]="key">
+  </generic-ctrl>
+</fieldset>
+
+
+<ng-template #simpleCtrl>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">{{options.label || name}}</label>
+
+    <div class="col-sm-10" [ngSwitch]="options.type">
+      <div *ngSwitchCase="'check'" class="checkbox">
+        <label>
+          <input type="checkbox" [formControl]="ctrl"> {{options.label}}
+        </label>
+      </div>
+
+      <select *ngSwitchCase="'combo'" [formControl]="ctrl" class="form-control">
+        <option></option>
+        <option *ngFor="let item of options.optList" [value]="item.value">{{item.text}}</option>
+      </select>
+
+      <ng-container *ngSwitchCase="'radio'">
+        <label class="radio-inline" *ngFor="let item of options.optList">
+          <input type="radio" [formControl]="ctrl" [value]="item.value"> {{item.text}}
+        </label>
+      </ng-container>
+
+      <input-num *ngSwitchCase="'num'" [formControl]="ctrl"></input-num>
+
+      <input *ngSwitchDefault [type]="options.type" [formControl]="ctrl" class="form-control" />
+    </div>
+  </div>
+</ng-template>

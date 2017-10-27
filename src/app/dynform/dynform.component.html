@@ -1,0 +1,15 @@
+<form [formGroup]="frm" class="form-horizontal">
+  <generic-ctrl [ctrl]="frm"></generic-ctrl>
+
+  <div class="col-sm-offset-8 col-sm-4">
+    <button [disabled]="frm.invalid" type="submit" class="btn btn-success pull-right">SAVE</button>
+    <button type="button" class="btn btn-default pull-left" (click)="frm.reset()">CANCEL</button>
+  </div>
+</form>
+
+<hr/>
+<pre>
+VALID={{frm.valid}}
+VALUE={{frm.value | json}}
+ERROR={{allErrors(frm) | json}}
+</pre>
