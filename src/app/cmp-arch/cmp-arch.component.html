@@ -1,0 +1,28 @@
+<notify-container></notify-container>
+
+<button (click)="deleteGuido()">GUIDO</button>
+<tabs-group>
+  <my-tab [title]="'Prima'">
+    <h1>Questo è il contenuto della 1° Tab</h1>
+  </my-tab>
+  <my-tab title="Seconda = HOME">
+    <eos-home></eos-home>
+  </my-tab>
+  <my-tab *ngFor="let item of tabsData" [title]="item.title">
+    <my-accordion [title]="XXX">
+      {{item.text}}
+    </my-accordion>
+  </my-tab>
+</tabs-group>
+
+
+<my-accordion title="CIAO PREMI QUI..." color="warning">
+  <h2>SSSSHHHH chiudi subito</h2>
+  <p>questo è un
+    <b>SEGRETO!!!</b>
+  </p>
+  <my-accordion title="Ciao Simone">
+
+    <eos-oper></eos-oper>
+  </my-accordion>
+</my-accordion>

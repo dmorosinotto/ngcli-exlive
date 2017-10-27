@@ -1,0 +1,6 @@
+<ul class="nav nav-pills" [ngClass]="{'nav-justified': !vert, 'nav-stacked': vert}" [style.width.px]="vert ? 200: 'auto'">
+  <li role="presentation " *ngFor="let tab of tabs " [class.active]="tab.selected " (click)="select(tab) ">
+    <a>{{ tab.title }}</a>
+  </li>
+</ul>
+<ng-content [class.pull-right]="vert"></ng-content>

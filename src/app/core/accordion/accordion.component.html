@@ -1,0 +1,9 @@
+<div class="panel" [ngClass]="'panel-'+color">
+  <div class="panel-heading" (click)="toggle()">{{ title }}
+    <span class="pull-right glyphicon" [class.glyphicon-minus]="opened" [ngClass]="{' glyphicon-plus': !opened}"></span>
+  </div>
+  <div class="panel-body" *ngIf="opened">
+    <!--[style.hidden]="!opened"-->
+    <ng-content></ng-content>
+  </div>
+</div>
