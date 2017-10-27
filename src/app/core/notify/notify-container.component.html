@@ -1,0 +1,8 @@
+<aside>
+  <alert-dumb *ngFor="let not of (notSvc.Alerts | async)" 
+    [title]="not.title | uppercase" 
+    [message]="not.message | json" 
+    [color]="defaultColor || not.color"
+    (closeMe)="close(not)">
+  </alert-dumb>
+</aside>

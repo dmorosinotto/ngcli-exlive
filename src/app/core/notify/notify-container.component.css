@@ -1,0 +1,6 @@
+aside {
+    position: absolute;
+    right: 0px;
+    width: 33%;
+    z-index: 9;
+}

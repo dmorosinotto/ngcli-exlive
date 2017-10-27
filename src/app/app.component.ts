@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import * as u from './utils';
+import { Component, OnInit } from "@angular/core";
+import * as u from "./utils";
 
 @Component({
-  selector: 'app-root',
-  template: `
+    selector: "app-root",
+    template: `
 <nav>
   <ul class="nav nav-tabs">
       <li role="presentation" routerLinkActive="active"><a routerLink="/home" >Home</a></li>
@@ -14,19 +14,21 @@ import * as u from './utils';
       <li role="presentation" routerLinkActive="active"><a routerLinkActive="custom" routerLink="/login" >Login</a></li>
       <li role="presentation" routerLinkActive="active"><a routerLinkActive="custom" routerLink="/signin" >Sign In</a></li>
       <li role="presentation" routerLinkActive="active"><a routerLinkActive="custom" routerLink="/contact" >Contact</a></li>
+      <li role="presentation" routerLinkActive="active"><a routerLinkActive="custom" routerLink="/dynform" >DynForm</a></li>
+      <li role="presentation" routerLinkActive="active"><a routerLinkActive="custom" routerLink="/cmparch" >CmpArch</a></li>
   </ul>
   <router-outlet></router-outlet>
+  <notify-container defaultColor="danger"></notify-container>
   </nav>
   `,
-  styles: ['.custom { color: red }']
+    styles: [".custom { color: red }"]
 })
 export class AppComponent implements OnInit {
+    constructor() {
+        console.log("FIRST ANGULAR COMPONENT CREATED");
+    }
 
-  constructor() {
-    console.log("FIRST ANGULAR COMPONENT CREATED");
-  }
-
-  public ngOnInit(): void {
-    u.after(2, u.say("Hello World"))
-  }
+    public ngOnInit(): void {
+        u.after(2, u.say("Hello World"));
+    }
 }
